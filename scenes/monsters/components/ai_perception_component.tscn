@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://60u6kkk7dypg"]
+
+[ext_resource type="Script" uid="uid://c4dlh0ihyowm8" path="res://scenes/monsters/components/ai_perception_component.gd" id="1_ti1ar"]
+[ext_resource type="PackedScene" uid="uid://c2mwsq0khckoy" path="res://scenes/monsters/components/cone.tscn" id="2_526bj"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_busei"]
+points = PackedVector3Array(-0.000195742, 1, -0.000195742, 0.194988, -1, -0.980814, -0.000195742, -1, -1, -0.195184, -1, -0.980814, -0.382733, -1, -0.924041, -0.555599, -1, -0.831637, -0.707126, -1, -0.707126, -0.831637, -1, -0.555599, -0.924041, -1, -0.382733, -0.980814, -1, -0.195184, -1, -1, -0.000195742, -0.980814, -1, 0.194988, -0.924041, -1, 0.382537, -0.831637, -1, 0.555403, -0.707126, -1, 0.70693, -0.555599, -1, 0.831441, -0.382733, -1, 0.923845, -0.195184, -1, 0.980619, -0.000195742, -1, 1, 0.194988, -1, 0.980619, 0.382537, -1, 0.923845, 0.555403, -1, 0.831441, 0.70693, -1, 0.70693, 0.831441, -1, 0.555403, 0.923845, -1, 0.382537, 0.980619, -1, 0.194988, 1, -1, -0.000195742, 0.980619, -1, -0.195184, 0.923845, -1, -0.382733, 0.831441, -1, -0.555599, 0.70693, -1, -0.707126, 0.555403, -1, -0.831637, 0.382537, -1, -0.924041)
+
+[node name="AIPerceptionComponent" type="Node3D"]
+script = ExtResource("1_ti1ar")
+
+[node name="VisionTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="VisionArea" type="Area3D" parent="."]
+
+[node name="Cone" parent="VisionArea" instance=ExtResource("2_526bj")]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, 0, 0, -10)
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="VisionArea"]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, -10, 0, 10, -4.37114e-07, 0, 0, -10)
+shape = SubResource("ConvexPolygonShape3D_busei")
+
+[node name="VisionRayCast" type="RayCast3D" parent="VisionArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+target_position = Vector3(0, -1, -100)
+
+[connection signal="timeout" from="VisionTimer" to="." method="_on_vision_timer_timeout"]

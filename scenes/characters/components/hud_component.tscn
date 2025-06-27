@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://clqgontcb54gc"]
+
+[ext_resource type="Texture2D" uid="uid://clw6sgmnjdv54" path="res://scenes/characters/player/assets/kenney_input_prompts_1.4/keyboard_e.png" id="1_3weh4"]
+[ext_resource type="Script" uid="uid://cojtn5ee3qeys" path="res://scenes/characters/components/hud/context_component.gd" id="1_i5ssv"]
+[ext_resource type="Texture2D" uid="uid://vnvsadmhgljb" path="res://scenes/characters/player/assets/kenney_crosshair_pack/crosshair012.png" id="1_lk2rc"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="ContextComponent" type="CenterContainer" parent="." node_paths=PackedStringArray("icon", "context")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 50.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i5ssv")
+icon = NodePath("HBoxContainer/TextureRect")
+context = NodePath("HBoxContainer/Label")
+default_icon = ExtResource("1_3weh4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ContextComponent"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ContextComponent/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_3weh4")
+
+[node name="Label" type="Label" parent="ContextComponent/HBoxContainer"]
+layout_mode = 2
+text = "Lorem Ipsum"
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Crosshair" type="TextureRect" parent="CenterContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("1_lk2rc")

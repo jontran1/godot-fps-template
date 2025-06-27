@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://15uftw4o040g"]
+
+[ext_resource type="Script" uid="uid://bnfwc1mql8mtl" path="res://scenes/characters/player/player.gd" id="1_8afob"]
+[ext_resource type="Script" uid="uid://d2m45ra676vft" path="res://scenes/characters/components/movement_component.gd" id="3_gmlin"]
+[ext_resource type="Script" uid="uid://d088qik4lqk78" path="res://scenes/characters/player/input_component.gd" id="4_lvxji"]
+[ext_resource type="Script" uid="uid://msk01a6sarje" path="res://scenes/characters/player/player_camera.gd" id="4_p47bc"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_u8vuu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dovo2"]
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+script = ExtResource("1_8afob")
+
+[node name="MovementComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "look_pivot")]
+script = ExtResource("3_gmlin")
+actor = NodePath("..")
+look_pivot = NodePath("../HeadComponent")
+
+[node name="InputComponent" type="Node" parent="."]
+script = ExtResource("4_lvxji")
+
+[node name="Controller" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_u8vuu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_dovo2")
+
+[node name="HeadComponent" type="Node3D" parent="." node_paths=PackedStringArray("actor", "movement_component")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+script = ExtResource("4_p47bc")
+actor = NodePath("..")
+movement_component = NodePath("../MovementComponent")
+
+[node name="Camera3D" type="Camera3D" parent="HeadComponent"]
+
+[connection signal="input_direction_moved" from="InputComponent" to="MovementComponent" method="_on_input_component_input_direction_moved"]
+[connection signal="input_jumped_pressed" from="InputComponent" to="MovementComponent" method="_on_jump"]
+[connection signal="input_mouse_moved" from="InputComponent" to="HeadComponent" method="_on_input_component_input_mouse_moved"]
+[connection signal="input_sprint_pressed" from="InputComponent" to="MovementComponent" method="_on_sprint"]
+[connection signal="input_sprint_released" from="InputComponent" to="MovementComponent" method="_on_stop_sprint"]

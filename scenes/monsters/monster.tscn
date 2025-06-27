@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://clq4qppwhlek3"]
+
+[ext_resource type="Script" uid="uid://dg8bk1fdnsptg" path="res://scenes/monsters/components/ai_movement_component.gd" id="1_3366s"]
+[ext_resource type="Script" uid="uid://b2ytvpigigjhb" path="res://scenes/monsters/ai_controller.gd" id="2_w06ud"]
+[ext_resource type="PackedScene" uid="uid://60u6kkk7dypg" path="res://scenes/monsters/components/ai_perception_component.tscn" id="3_gcx1e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2yfuc"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2yfuc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2yfuc"]
+
+[node name="Monster" type="CharacterBody3D" node_paths=PackedStringArray("actor")]
+script = ExtResource("1_3366s")
+actor = NodePath(".")
+
+[node name="AIController" type="Node" parent="." node_paths=PackedStringArray("actor", "ai_movement_component", "perception_component")]
+script = ExtResource("2_w06ud")
+actor = NodePath("..")
+ai_movement_component = NodePath("../AIMovementComponent")
+perception_component = NodePath("../AIPerceptionComponent")
+
+[node name="SearchLocationTimer" type="Timer" parent="AIController"]
+wait_time = 5.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_2yfuc")
+mesh = SubResource("CapsuleMesh_2yfuc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_2yfuc")
+
+[node name="AIMovementComponent" type="Node" parent="." node_paths=PackedStringArray("actor", "nav_agent")]
+script = ExtResource("1_3366s")
+actor = NodePath("..")
+nav_agent = NodePath("../NavigationAgent3D")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="AIPerceptionComponent" parent="." instance=ExtResource("3_gcx1e")]
+
+[connection signal="on_character_state_update" from="AIController" to="." method="_on_ai_controller_on_character_state_update"]
+[connection signal="timeout" from="AIController/SearchLocationTimer" to="AIController" method="_on_search_location_timer_timeout"]
+[connection signal="vision_detection_changed" from="AIPerceptionComponent" to="AIController" method="vision_detection_changed"]
