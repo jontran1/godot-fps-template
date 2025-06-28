@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://clq4qppwhlek3"]
 
-[ext_resource type="Script" uid="uid://dg8bk1fdnsptg" path="res://scenes/monsters/components/ai_movement_component.gd" id="1_3366s"]
-[ext_resource type="Script" uid="uid://b2ytvpigigjhb" path="res://scenes/monsters/ai_controller.gd" id="2_w06ud"]
-[ext_resource type="PackedScene" uid="uid://60u6kkk7dypg" path="res://scenes/monsters/components/ai_perception_component.tscn" id="3_gcx1e"]
+[ext_resource type="Script" uid="uid://dg8bk1fdnsptg" path="res://scenes/characters/enemies/components/ai_movement_component.gd" id="1_3366s"]
+[ext_resource type="Script" uid="uid://b2ytvpigigjhb" path="res://scenes/characters/enemies/ai_controller.gd" id="2_w06ud"]
+[ext_resource type="PackedScene" uid="uid://60u6kkk7dypg" path="res://scenes/characters/enemies/components/ai_perception_component.tscn" id="3_gcx1e"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2yfuc"]
 albedo_color = Color(0, 0, 0, 1)

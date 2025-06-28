@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://b8nheuxrqw7u2"]
+
+[ext_resource type="Script" uid="uid://bspnw1q4x75qx" path="res://scenes/levels/interactables/interactable.gd" id="1_htkfx"]
+[ext_resource type="Script" uid="uid://clmgssmp0hfrv" path="res://scenes/levels/interactables/interactable_component.gd" id="2_gxwk4"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bwasv"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_htkfx"]
+
+[node name="Ball" type="RigidBody3D" groups=["InteractableObject"]]
+collision_mask = 3
+script = ExtResource("1_htkfx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_bwasv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_htkfx")
+
+[node name="InteractableComponent" type="Node" parent="." node_paths=PackedStringArray("interactable", "mesh_instance")]
+script = ExtResource("2_gxwk4")
+interactable = NodePath("..")
+mesh_instance = NodePath("../MeshInstance3D")
+metadata/_custom_type_script = "uid://clmgssmp0hfrv"

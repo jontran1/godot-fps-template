@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://15uftw4o040g"]
+[gd_scene load_steps=9 format=3 uid="uid://15uftw4o040g"]
 
 [ext_resource type="Script" uid="uid://bnfwc1mql8mtl" path="res://scenes/characters/player/player.gd" id="1_8afob"]
-[ext_resource type="Script" uid="uid://d2m45ra676vft" path="res://scenes/characters/components/movement_component.gd" id="3_gmlin"]
+[ext_resource type="Script" uid="uid://d2m45ra676vft" path="res://scenes/characters/player/components/movement_component.gd" id="3_gmlin"]
 [ext_resource type="Script" uid="uid://d088qik4lqk78" path="res://scenes/characters/player/input_component.gd" id="4_lvxji"]
 [ext_resource type="Script" uid="uid://msk01a6sarje" path="res://scenes/characters/player/player_camera.gd" id="4_p47bc"]
+[ext_resource type="Script" uid="uid://cedpdrf525ouv" path="res://scenes/characters/player/components/interaction_component.gd" id="5_qd3e3"]
+[ext_resource type="PackedScene" uid="uid://clqgontcb54gc" path="res://scenes/characters/player/components/hud/hud_component.tscn" id="6_6avc5"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u8vuu"]
 
@@ -36,8 +38,18 @@ movement_component = NodePath("../MovementComponent")
 
 [node name="Camera3D" type="Camera3D" parent="HeadComponent"]
 
+[node name="InteractComponent" type="RayCast3D" parent="HeadComponent/Camera3D" node_paths=PackedStringArray("player_camera", "interactor")]
+collision_mask = 2
+script = ExtResource("5_qd3e3")
+player_camera = NodePath("..")
+interactor = NodePath("../../..")
+
+[node name="HUDComponent" parent="." instance=ExtResource("6_6avc5")]
+
 [connection signal="input_direction_moved" from="InputComponent" to="MovementComponent" method="_on_input_component_input_direction_moved"]
+[connection signal="input_interact_pressed" from="InputComponent" to="HeadComponent/Camera3D/InteractComponent" method="interact"]
 [connection signal="input_jumped_pressed" from="InputComponent" to="MovementComponent" method="_on_jump"]
 [connection signal="input_mouse_moved" from="InputComponent" to="HeadComponent" method="_on_input_component_input_mouse_moved"]
 [connection signal="input_sprint_pressed" from="InputComponent" to="MovementComponent" method="_on_sprint"]
 [connection signal="input_sprint_released" from="InputComponent" to="MovementComponent" method="_on_stop_sprint"]
+[connection signal="interactable_hover_updated" from="HeadComponent/Camera3D/InteractComponent" to="HUDComponent" method="on_update_ui_interactable_context"]

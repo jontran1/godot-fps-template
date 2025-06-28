@@ -1,10 +1,8 @@
-extends CenterContainer
+extends Node
 
-class_name ContextComponent
-
-@export var icon: TextureRect
-@export var context: Label
-@export var default_icon: Texture2D
+var debug
+var player: Player
+var ui_context: ContextComponent
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

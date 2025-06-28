@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://0orrclbroy2m"]
+[gd_scene load_steps=13 format=3 uid="uid://0orrclbroy2m"]
 
 [ext_resource type="PackedScene" uid="uid://15uftw4o040g" path="res://scenes/characters/player/player.tscn" id="1_aug67"]
-[ext_resource type="PackedScene" uid="uid://clq4qppwhlek3" path="res://scenes/monsters/monster.tscn" id="2_5wkf7"]
+[ext_resource type="PackedScene" uid="uid://clq4qppwhlek3" path="res://scenes/characters/enemies/monster.tscn" id="2_5wkf7"]
+[ext_resource type="PackedScene" uid="uid://bt23olspmdtr5" path="res://scenes/levels/interactables/interactable_box.tscn" id="3_47vcd"]
+[ext_resource type="PackedScene" uid="uid://b8nheuxrqw7u2" path="res://scenes/levels/interactables/interactable_ball.tscn" id="4_o2l3c"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_aug67"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -73,3 +75,9 @@ use_collision = true
 transform = Transform3D(1.52898, 0, 0, 0, 6.40535, 0, 0, 0, 3.2809, -5.77194, 3.25267, 5.53684)
 material_override = SubResource("StandardMaterial3D_aug67")
 use_collision = true
+
+[node name="Box" parent="." instance=ExtResource("3_47vcd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.37396, 2.17969, -3.04224)
+
+[node name="Ball" parent="." instance=ExtResource("4_o2l3c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3898, 2.18173, -0.222982)

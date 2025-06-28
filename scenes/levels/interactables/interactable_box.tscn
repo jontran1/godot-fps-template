@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bt23olspmdtr5"]
+
+[ext_resource type="Script" uid="uid://bspnw1q4x75qx" path="res://scenes/levels/interactables/interactable.gd" id="1_8b5fe"]
+[ext_resource type="Script" uid="uid://clmgssmp0hfrv" path="res://scenes/levels/interactables/interactable_component.gd" id="2_xujbt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8b5fe"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xujbt"]
+
+[node name="Box" type="RigidBody3D" groups=["InteractableObject"]]
+collision_mask = 3
+linear_damp = 0.1
+angular_damp = 0.1
+script = ExtResource("1_8b5fe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_8b5fe")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_xujbt")
+
+[node name="InteractableComponent" type="Node" parent="." node_paths=PackedStringArray("interactable", "mesh_instance")]
+script = ExtResource("2_xujbt")
+interactable = NodePath("..")
+mesh_instance = NodePath("../MeshInstance3D")
+metadata/_custom_type_script = "uid://clmgssmp0hfrv"

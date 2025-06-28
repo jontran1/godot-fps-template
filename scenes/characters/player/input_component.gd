@@ -7,6 +7,7 @@ signal input_mouse_moved(mouse_event: InputEventMouseMotion)
 signal input_jumped_pressed()
 signal input_sprint_pressed()
 signal input_sprint_released()
+signal input_interact_pressed()
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -24,3 +25,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		input_sprint_pressed.emit()
 	elif Input.is_action_just_released("sprint"):
 		input_sprint_released.emit()
+	elif Input.is_action_just_released("interact"):
+		input_interact_pressed.emit()
+	elif Input.is_key_pressed(KEY_ESCAPE): #TODO remove later
+		get_tree().quit()

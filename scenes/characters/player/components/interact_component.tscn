@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ba3h6fg7tfbq6"]
+
+[ext_resource type="Script" uid="uid://cedpdrf525ouv" path="res://scenes/characters/player/components/interaction_component.gd" id="1_168vb"]
+
+[node name="InteractionComponent" type="RayCast3D"]
+script = ExtResource("1_168vb")
