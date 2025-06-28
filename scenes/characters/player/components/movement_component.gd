@@ -48,7 +48,12 @@ func _on_stop_sprint() -> void:
 	speed = walk_speed
 	
 func _on_input_component_input_direction_moved(input_direction: Vector2) -> void:
-	direction = (look_pivot.transform.basis * Vector3(input_direction.x, 0, input_direction.y)).normalized()
+	# Get the forward direction from the camera's basis
+	var camera_forward = look_pivot.global_transform.basis.z.normalized()
+	# Get the right direction from the camera's basis
+	var camera_right = look_pivot.global_transform.basis.x.normalized()
+	# Construct movement direction based on input
+	direction = (camera_right * input_direction.x + camera_forward * input_direction.y).normalized()
 
 func _move_toward_target(target_global_position: Vector3) -> void:
 	var to_target = target_global_position - actor.global_transform.origin
